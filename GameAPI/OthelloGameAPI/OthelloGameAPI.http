@@ -1,0 +1,6 @@
+@OthelloGameAPI_HostAddress = http://localhost:5079
+
+GET {{OthelloGameAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
