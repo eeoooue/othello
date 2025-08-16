@@ -6,3 +6,12 @@ services:
     ports:
       - "5000:5000"
     restart: unless-stopped
+
+  game-api:
+    build:
+      context: ./GameAPI/OthelloGameAPI
+    image: othello-game-api
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    
