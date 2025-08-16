@@ -1,0 +1,24 @@
+.tile {
+  width: 64px;
+  height: 64px;
+  background-color: forestgreen;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8%;
+}
+
+.piece {
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+}
+
+.piece-black {
+  background-color: #010;
+}
+
+.piece-white {
+  background-color: #fef;
+}
