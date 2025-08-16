@@ -14,4 +14,10 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
-    
+
+  gameplay-spa:
+    build:
+      context: ./GameplaySPA
+    ports:
+      - "5173:80"
+    restart: unless-stopped
