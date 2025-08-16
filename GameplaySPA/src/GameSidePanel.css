@@ -1,0 +1,58 @@
+
+.game-side-panel{
+    background-color: #ddd;
+    padding: 10px 10px;
+    margin: 0px 10px;
+    border-radius: 8px;
+}
+
+.game-score {
+    display: flex;
+    flex-direction: row;
+}
+
+.game-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.score-panel {
+    display: flex;
+    background-color: #fff;
+    width: 45%;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin: 4px 4px;
+}
+
+.score-panel.black {
+    color: white;
+    background-color: #000;
+}
+
+.score-panel p {
+    margin: auto auto;
+}
+
+.spacer{
+    margin: auto;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.action-buttons button {
+    width: 200px;
+    padding: 10px;
+    margin: 4px 4px;
+}
+
+.action-buttons button:hover:enabled {
+    cursor: pointer;
+}
