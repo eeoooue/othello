@@ -1,0 +1,6 @@
+
+.game-interface{
+    display: flex;
+    flex-direction: row;
+    margin: 5vh 5vw;
+}
