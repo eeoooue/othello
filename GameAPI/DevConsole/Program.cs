@@ -13,7 +13,7 @@ namespace DevConsole
             while (true)
             {
                 Console.Clear();
-                presenter.PresentBoard(Game.Board);
+                presenter.PresentGameState(Game.GetGameState());
                 GetPlayerMove();
             }
         }

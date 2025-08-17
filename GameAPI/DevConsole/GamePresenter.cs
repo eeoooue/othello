@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibOthello;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,30 @@ namespace DevConsole
 {
     internal class GamePresenter
     {
-        public void PresentBoard(int[,] board)
+        public void PresentGameState(OthelloGameState gamestate)
+        {
+            PresentContext(gamestate);
+            PresentBoard(gamestate.Board);
+        }
+
+        public void PresentContext(OthelloGameState gamestate)
+        {
+            string turnPlayer = ParseTurnPlayer(gamestate.TurnPlayer);
+            Console.WriteLine($"Turn Player: {turnPlayer}");
+        }
+
+        private string ParseTurnPlayer(int turnPlayer)
+        {
+            switch (turnPlayer)
+            {
+                case 1:
+                    return "Black (X)";
+                default:
+                    return "White (O)";
+            }
+        }
+
+        private void PresentBoard(int[,] board)
         {
             for(int i=0; i<8; i++)
             {
