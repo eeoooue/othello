@@ -2,13 +2,16 @@
 {
     public class OthelloGame
     {
-        public List<OthelloMove> Moves { get { return _moves; } }
+        public List<OthelloMove> AvailableMoves { get { return _availableMoves; } }
+        public List<OthelloMove> MoveHistory { get { return _moveHistory; } }
+
         public const int BoardWidth = 8;
         public int[,] Board { get { return _board; } }
 
         public OthelloPiece TurnPlayer = OthelloPiece.Black;
 
-        private List<OthelloMove> _moves = new List<OthelloMove>();
+        private List<OthelloMove> _availableMoves = new List<OthelloMove>();
+        private List<OthelloMove> _moveHistory = new List<OthelloMove>();
         private int[,] _board = new int[BoardWidth, BoardWidth];
 
         private CaptureAnalyst _captureAnalyst = new CaptureAnalyst();
@@ -36,31 +39,130 @@
 
         private void RefreshListOfAvailableMoves()
         {
+            _availableMoves.Clear();
+            int ally = ParsePieceColour(TurnPlayer);
 
+            for (int i=0; i<BoardWidth; i++)
+            {
+                for(int j=0; j<BoardWidth; j++)
+                {
+                    int capturesAvailable = _captureAnalyst.CountCapturesForMove(ally, _board, i, j);
+                    if (capturesAvailable > 0)
+                    {
+                        OthelloMove move = new OthelloMove(TurnPlayer, i, j);
+                        _availableMoves.Add(move);
+                    }
+                }
+            }
         }
 
-        public void AttemptMove(OthelloMove move)
+        public bool AttemptMove(OthelloMove move)
         {
             if (MoveIsByTurnPlayer(move) && MoveIsValid(move))
             {
                 PerformMove(move);
-                RefreshListOfAvailableMoves();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AttemptPass()
+        {
+            if (AvailableMoves.Count == 0)
+            {
+                EndTurn();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
         private void PerformMove(OthelloMove move)
         {
-            return;
+            int ally = ParsePieceColour(move.Colour);
+            int i = move.Row;
+            int j = move.Col;
+            List<Tuple<int, int>> captures = _captureAnalyst.CollectCapturesForMove(ally, _board, i, j);
+            foreach(Tuple<int, int> capture in captures)
+            {
+                FlipPieceAtPosition(capture.Item1, capture.Item2);
+            }
+
+            PlaceNewPiece(ally, i, j);
+            EndTurn();
+        }
+
+        private void PlaceNewPiece(int colour, int i, int j)
+        {
+            _board[i, j] = colour;
+        }
+
+        private void EndTurn()
+        {
+            ChangeTurnPlayer();
+            RefreshListOfAvailableMoves();
+        }
+
+        private void ChangeTurnPlayer()
+        {
+            if (TurnPlayer == OthelloPiece.Black)
+            {
+                TurnPlayer = OthelloPiece.White;
+            }
+            else
+            {
+                TurnPlayer = OthelloPiece.Black;
+            }
+        }
+
+        private void FlipPieceAtPosition(int i, int j)
+        {
+            Board[i, j] *= -1;
         }
 
         private bool MoveIsValid(OthelloMove move)
         {
+            foreach(OthelloMove option in AvailableMoves)
+            {
+                if (MovesMatch(option, move))
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 
+        private bool MovesMatch(OthelloMove a, OthelloMove b)
+        {
+            if (a.Equals(b))
+            {
+                return true;
+            }
+
+            if (a.Colour == b.Colour)
+            {
+                if (a.Row == b.Row)
+                {
+                    if (a.Col == b.Col)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
         private bool MoveIsByTurnPlayer(OthelloMove move)
         {
-            return false;
+            return move.Colour == TurnPlayer;
         }
 
         private int ParsePieceColour(OthelloPiece piece)
