@@ -1,4 +1,6 @@
 
+using OthelloGameAPI.Services;
+
 namespace OthelloGameAPI
 {
     public class Program
@@ -13,6 +15,7 @@ namespace OthelloGameAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSingleton<OthelloGameService>();
 
             var app = builder.Build();
 
