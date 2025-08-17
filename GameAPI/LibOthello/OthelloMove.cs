@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace LibOthello
 {
-    public class OthelloMove
+    public struct OthelloMove
     {
+        public OthelloPiece Colour;
+        public int Row;
+        public int Col;
     }
 }
