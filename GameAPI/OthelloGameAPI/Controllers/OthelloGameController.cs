@@ -1,5 +1,6 @@
 ﻿using LibOthello;
 using Microsoft.AspNetCore.Mvc;
+using OthelloGameAPI.Services;
 
 namespace OthelloGameAPI.Controllers
 {
@@ -7,12 +8,13 @@ namespace OthelloGameAPI.Controllers
     [Route("[controller]")]
     public class OthelloGameController : ControllerBase
     {
-        private static OthelloGame Game = new OthelloGame();
-        private static OthelloGameState GameState { get { return Game.GetGameState(); } }
+        private OthelloGameService Service;
+        private OthelloGame Game { get { return Service.Game; } }
+        private OthelloGameState GameState { get { return Game.GetGameState(); } }
 
-        public OthelloGameController()
+        public OthelloGameController(OthelloGameService service)
         {
-
+            Service = service;
         }
 
         [HttpGet("Board")]
@@ -46,8 +48,7 @@ namespace OthelloGameAPI.Controllers
         [HttpPost("NewGame")]
         public IActionResult StartNewGame()
         {
-            Game = new OthelloGame();
-
+            Service.NewGame();
             return new EmptyResult();
         }
     }
