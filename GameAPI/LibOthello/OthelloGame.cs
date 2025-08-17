@@ -19,6 +19,7 @@
         public OthelloGame()
         {
             InitializeBoard();
+            RefreshListOfAvailableMoves();
         }
 
         private void InitializeBoard()
@@ -31,10 +32,10 @@
                 }
             }
 
-            _board[4, 3] = -1;
+            _board[3, 3] = -1;
             _board[3, 4] = 1;
-            _board[4, 3] = -1;
-            _board[3, 4] = 1;
+            _board[4, 3] = 1;
+            _board[4, 4] = -1;
         }
 
         private void RefreshListOfAvailableMoves()
@@ -132,38 +133,8 @@
 
         private bool MoveIsValid(OthelloMove move)
         {
-            foreach(OthelloMove option in AvailableMoves)
-            {
-                if (MovesMatch(option, move))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return AvailableMoves.Contains(move);
         }
-
-        private bool MovesMatch(OthelloMove a, OthelloMove b)
-        {
-            if (a.Equals(b))
-            {
-                return true;
-            }
-
-            if (a.Colour == b.Colour)
-            {
-                if (a.Row == b.Row)
-                {
-                    if (a.Col == b.Col)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
 
         private bool MoveIsByTurnPlayer(OthelloMove move)
         {
