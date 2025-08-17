@@ -56,6 +56,11 @@
             }
         }
 
+        public bool TurnPlayerMustPass()
+        {
+            return AvailableMoves.Count == 0;
+        }
+
         public bool AttemptMove(OthelloMove move)
         {
             if (MoveIsByTurnPlayer(move) && MoveIsValid(move))
@@ -71,7 +76,7 @@
 
         public bool AttemptPass()
         {
-            if (AvailableMoves.Count == 0)
+            if (TurnPlayerMustPass())
             {
                 EndTurn();
                 return true;
