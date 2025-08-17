@@ -11,5 +11,12 @@ namespace LibOthello
         public OthelloPiece Colour;
         public int Row;
         public int Col;
+
+        public OthelloMove(OthelloPiece colour, int i, int j)
+        {
+            Colour = colour;
+            Row = i;
+            Col = j;
+        }
     }
 }
