@@ -9,7 +9,7 @@ services:
 
   game-api:
     build:
-      context: ./GameAPI/OthelloGameAPI
+      context: ./GameAPI
     image: othello-game-api
     ports:
       - "8080:8080"
