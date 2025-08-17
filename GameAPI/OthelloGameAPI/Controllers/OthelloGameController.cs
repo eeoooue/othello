@@ -15,7 +15,7 @@ namespace OthelloGameAPI.Controllers
 
         }
 
-        [HttpGet(Name = "Board")]
+        [HttpGet("Board")]
         public IActionResult GetBoard()
         {
             int[,] board = GameState.Board;
@@ -23,7 +23,7 @@ namespace OthelloGameAPI.Controllers
             return new EmptyResult();
         }
 
-        [HttpGet(Name = "TurnPlayer")]
+        [HttpGet("TurnPlayer")]
         public IActionResult GetTurnPlayer()
         {
             int turnPlayer = GameState.TurnPlayer;
@@ -31,7 +31,7 @@ namespace OthelloGameAPI.Controllers
             return new EmptyResult();
         }
 
-        [HttpPost(Name = "Move")]
+        [HttpPost("Move")]
         public IActionResult SubmitMove()
         {
             OthelloPiece player = Game.TurnPlayer;
@@ -43,7 +43,7 @@ namespace OthelloGameAPI.Controllers
             return new EmptyResult();
         }
 
-        [HttpPost(Name = "NewGame")]
+        [HttpPost("NewGame")]
         public IActionResult StartNewGame()
         {
             Game = new OthelloGame();
