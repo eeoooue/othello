@@ -22,6 +22,11 @@
             RefreshListOfAvailableMoves();
         }
 
+        public OthelloGameState GetGameState()
+        {
+            return new OthelloGameState(this);
+        }
+
         private void InitializeBoard()
         {
             for(int i=0; i< BoardWidth; i++)
