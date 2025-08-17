@@ -18,6 +18,11 @@ namespace LibOthello
         {
             List<Tuple<int, int>> result = new List<Tuple<int, int>>();
 
+            if (board[i, j] != 0)
+            {
+                return result;
+            }
+
             for(int di=-1; di<=1; di++)
             {
                 for(int dj=-1; dj<=1; dj++)
