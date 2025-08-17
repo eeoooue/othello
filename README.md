@@ -3,6 +3,8 @@
 
 A self-hosted application for playing Othello against a Convolutional Neural Network (CNN).
 
+![Image](./docs/images/ExampleScreenshot.png)
+
 ## System Design
 
 The system is intended to be an orchestration of three containerized applications:
