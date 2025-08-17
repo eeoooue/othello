@@ -8,8 +8,8 @@ namespace LibOthello
 {
     public class OthelloGameState
     {
-        public int[,] Board;
-        public int TurnPlayer;
+        public int[,] Board { get; }
+        public int TurnPlayer { get; }
 
         public OthelloGameState(OthelloGame game)
         {
