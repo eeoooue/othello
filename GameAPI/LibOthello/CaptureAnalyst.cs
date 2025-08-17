@@ -78,6 +78,9 @@ namespace LibOthello
                     Tuple<int, int> capture = Tuple.Create(i, j);
                     result.Add(capture);
                 }
+
+                i += di;
+                j += dj;
             }
 
             result.Clear();
