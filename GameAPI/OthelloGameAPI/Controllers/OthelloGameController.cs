@@ -1,4 +1,5 @@
 ﻿using LibOthello;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using OthelloGameAPI.Services;
 
@@ -21,35 +22,65 @@ namespace OthelloGameAPI.Controllers
         public IActionResult GetBoard()
         {
             int[,] board = GameState.Board;
+            int[][] matrix = CreateJaggedMatrix(board);
+            return Ok(matrix);
+        }
 
-            return new EmptyResult();
+        private static int[][] CreateJaggedMatrix(int[,] grid)
+        {
+            int rows = grid.GetLength(0), cols = grid.GetLength(1);
+            var jagged = new int[rows][];
+            for (int i = 0; i < rows; i++)
+            {
+                jagged[i] = new int[cols];
+                for (int j = 0; j < cols; j++) jagged[i][j] = grid[i, j];
+            }
+            return jagged;
         }
 
         [HttpGet("TurnPlayer")]
         public IActionResult GetTurnPlayer()
         {
             int turnPlayer = GameState.TurnPlayer;
+            return Ok(turnPlayer);
+        }
 
-            return new EmptyResult();
+
+        public class MoveDataObject
+        {
+            public int Player { get; set; } 
+            public int I { get; set; }
+            public int J { get; set; }
         }
 
         [HttpPost("Move")]
-        public IActionResult SubmitMove()
+        public IActionResult SubmitMove([FromBody] MoveDataObject dataObject)
         {
-            OthelloPiece player = Game.TurnPlayer;
-            int i = 0; // TODO: receive this
-            int j = 0; // TODO: receive this
+            OthelloPiece player = ParseTurnPlayer(dataObject.Player);
+            int i = dataObject.I;
+            int j = dataObject.J;
             OthelloMove move = new OthelloMove(player, i, j);
             Game.AttemptMove(move);
+            return Ok();
+        }
 
-            return new EmptyResult();
+        private OthelloPiece ParseTurnPlayer(int player)
+        {
+            if (player == 1)
+            {
+                return OthelloPiece.Black;
+            }
+            else
+            {
+                return OthelloPiece.White;
+            }
         }
 
         [HttpPost("NewGame")]
         public IActionResult StartNewGame()
         {
             Service.NewGame();
-            return new EmptyResult();
+            return Ok();
         }
     }
 }
