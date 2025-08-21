@@ -1,6 +1,5 @@
 import "./GameTile.css";
-
-type Piece = "empty" | "white" | "black";
+import type { Piece } from "../services/BoardService";
 
 type GameTileProps = {
   piece: Piece;

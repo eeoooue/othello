@@ -17,6 +17,16 @@ namespace OthelloGameAPI
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<OthelloGameService>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,8 +36,8 @@ namespace OthelloGameAPI
                 app.UseSwaggerUI();
             }
 
+            app.UseCors();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
