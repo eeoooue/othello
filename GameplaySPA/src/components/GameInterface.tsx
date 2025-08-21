@@ -1,29 +1,19 @@
-// GameInterface.tsx
-import './GameInterface.css'
-import GameBoard from './GameBoard'
-import GameSidePanel from './GameSidePanel'
-import type { Dispatch, SetStateAction } from 'react'
-
-type Piece = "empty" | "white" | "black"
-
-// optional: keep your toggle here or in GameBoard
-const next = (p: Piece): Piece =>
-  p === "empty" ? "white" : p === "white" ? "black" : "empty"
+import "./GameInterface.css";
+import GameBoard from "./GameBoard";
+import GameSidePanel from "./GameSidePanel";
+import type { Piece } from "../services/BoardService";
 
 export default function GameInterface({
   tiles,
-  setTiles,
+  onTileClick,
 }: {
-  tiles: Piece[]
-  setTiles: Dispatch<SetStateAction<Piece[]>>
+  tiles: Piece[];
+  onTileClick: (i: number, j: number) => void;
 }) {
-  const onToggle = (i: number) =>
-    setTiles(prev => prev.map((t, idx) => (idx === i ? next(t) : t)))
-
   return (
     <div className="game-interface">
-      <GameBoard tiles={tiles} onToggle={onToggle} />
+      <GameBoard tiles={tiles} onTileClick={onTileClick} />
       <GameSidePanel />
     </div>
-  )
+  );
 }
