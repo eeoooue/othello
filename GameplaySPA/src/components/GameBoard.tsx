@@ -1,24 +1,29 @@
 import GameTile from "./GameTile";
 import "./GameBoard.css";
-
-// GameBoard.tsx
-type Piece = "empty" | "white" | "black"
+import type { Piece } from "../services/BoardService";
 
 export default function GameBoard({
   tiles,
-  onToggle,
+  onTileClick,
 }: {
-  tiles: Piece[]
-  onToggle: (i: number) => void
+  tiles: Piece[];
+  onTileClick: (i: number, j: number) => void;
 }) {
   return (
     <div className="game-board">
       <div className="grid">
-        {tiles.map((piece, i) => (
-          <GameTile key={i} piece={piece} onClick={() => onToggle(i)} />
-        ))}
+        {tiles.map((piece, idx) => {
+          const i = Math.floor(idx / 8);
+          const j = idx % 8;
+          return (
+            <GameTile
+              key={idx}
+              piece={piece}
+              onClick={() => onTileClick(i, j)}
+            />
+          );
+        })}
       </div>
     </div>
-  )
+  );
 }
-
