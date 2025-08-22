@@ -25,9 +25,9 @@ namespace OthelloGameAPI.Controllers
         }
 
         [HttpGet("Board")]
-        public IActionResult GetBoard()
+        public IActionResult GetBoard([FromQuery] bool indicateMoveOptions = false)
         {
-            int[][] matrix = Service.GetGameBoard();
+            int[][] matrix = Service.GetGameBoard(indicateMoveOptions);
             return Ok(matrix);
         }
 
