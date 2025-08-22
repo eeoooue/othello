@@ -18,7 +18,7 @@ export default function GameSidePanel({
   const blackScore: number = gameInfo.ScoreBlack;
   const whiteScore: number = gameInfo.ScoreWhite;
   const turnPlayer: string = ParseTurnPlayer(gameInfo.TurnPlayer);
-  const enableButton: boolean = gameInfo.PlayerMustPass;
+  const enableButton: boolean = gameInfo.PlayerMustPass && !gameInfo.GameOver;
 
   return (
     <div className="game-side-panel">
@@ -39,7 +39,7 @@ export default function GameSidePanel({
 
         <div className="action-buttons">
           <button disabled={!enableButton}>Pass</button>
-          <button>Concede</button>
+          <button>New Game</button>
         </div>
 
     </div>
