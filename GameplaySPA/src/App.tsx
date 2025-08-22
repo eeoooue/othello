@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 
 import NavBar from './components/NavBar';
 import GameInterface from './components/GameInterface';
-import { createEmptyBoard, loadCurrentBoard } from './services/BoardService';
+import { createEmptyBoard } from './services/BoardService';
 import type { Piece } from './services/BoardService';
 import { submitMove, startNewGame } from "./services/MoveService";
-import { GameInfo, getDummyGameInfo, getGameInfoFromApi } from './services/GameInfoService';
+import { GameInfo, getDummyGameInfo } from './services/GameInfoService';
 
 import { fetchGameState } from './services/GameStateService';
 
