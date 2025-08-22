@@ -20,7 +20,8 @@ namespace OthelloGameAPI.Controllers
         [HttpGet("GameInfo")]
         public IActionResult GetGameInfo()
         {
-            return Ok();
+            GameInfoDataObject data = Service.GetGameInfo();
+            return Ok(data);
         }
 
         [HttpGet("Board")]
