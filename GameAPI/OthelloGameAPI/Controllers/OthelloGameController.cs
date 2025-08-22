@@ -11,11 +11,32 @@ namespace OthelloGameAPI.Controllers
     public class OthelloGameController : ControllerBase
     {
         private OthelloGameService Service;
+        private OpponentService Opponent;
 
-        public OthelloGameController(OthelloGameService service)
+        public OthelloGameController(OthelloGameService service, OpponentService opponent)
         {
             Service = service;
+            Opponent = opponent;
         }
+
+        private async Task TriggerOpponentResponseAttempt()
+        {
+            if (Service.GetTurnPlayer() == 1 || Service.Game.GameOver)
+            {
+                return;
+            }
+
+            OthelloMove? possibleMove = await Opponent.GetOpponentMove(Service.Game);
+            if (possibleMove is OthelloMove move)
+            {
+                Service.Game.AttemptMove(move);
+            }
+            else
+            {
+                Service.Game.AttemptPass();
+            }
+        }
+
 
         [HttpGet("GameInfo")]
         public IActionResult GetGameInfo()
@@ -42,17 +63,17 @@ namespace OthelloGameAPI.Controllers
         public IActionResult SubmitMove([FromBody] MoveDataObject move)
         {
             Service.AttemptMove(move);
+            _ = TriggerOpponentResponseAttempt();
             return Ok();
         }
-
 
         [HttpPost("Pass")]
         public IActionResult SubmitPass([FromQuery] int player)
         {
             Service.AttemptPass(player);
+            _ = TriggerOpponentResponseAttempt();
             return Ok();
         }
-
 
         [HttpPost("NewGame")]
         public IActionResult StartNewGame()

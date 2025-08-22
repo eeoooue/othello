@@ -16,6 +16,7 @@ namespace OthelloGameAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<OthelloGameService>();
+            builder.Services.AddScoped<OpponentService>();
 
             builder.Services.AddCors(options =>
             {

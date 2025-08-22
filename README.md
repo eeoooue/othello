@@ -18,7 +18,7 @@ The system is intended to be an orchestration of three containerized application
 
 ## Usage
 
-This project is a work in progress, and currently only supports self-play.
+This project is a work in progress, and currently only supports playing against random move selection rather than a CNN model.
 
 From the root of the repo, run ```docker compose up --build``` to launch the three applications:
 

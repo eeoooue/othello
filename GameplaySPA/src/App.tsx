@@ -11,7 +11,6 @@ import { GameInfo, getDummyGameInfo } from './services/GameInfoService';
 
 import { fetchGameState } from './services/GameStateService';
 
-
 function App() {
   const [tiles, setTiles] = useState<Piece[]>(() => createEmptyBoard());
   const [gameInfo, setGameInfo] = useState<GameInfo>(() => getDummyGameInfo());
@@ -25,7 +24,7 @@ function App() {
   useEffect(() => { refreshGameState().catch(console.error); }, []);
 
   const handleTileClick = (i: number, j: number) => {
-    submitMove(gameInfo.TurnPlayer, i, j)
+    submitMove(1, i, j) // '1' here forces playing as black only
       .then(refreshGameState)
       .catch(console.error);
   };
@@ -41,6 +40,29 @@ function App() {
       .then(refreshGameState)
       .catch(console.error);
   };
+
+  useEffect(() => {
+    let cancelled = false;
+    let fetching = false;
+
+    const tick = async () => {
+      if (fetching) return;
+      fetching = true;
+      try {
+        const { tiles, gameInfo } = await fetchGameState();
+        if (!cancelled) {
+          setTiles(tiles);
+          setGameInfo(gameInfo);
+        }
+      } finally {
+        fetching = false;
+      }
+    };
+
+    tick();
+    const id = setInterval(tick, 800);
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
 
   return (
     <>
