@@ -8,15 +8,17 @@ export default function GameInterface({
   tiles,
   gameInfo,
   onTileClick,
+  onReset,
 }: {
   tiles: Piece[];
   gameInfo: GameInfo;
   onTileClick: (i: number, j: number) => void;
+  onReset: () => void;
 }) {
   return (
     <div className="game-interface">
       <GameBoard tiles={tiles} onTileClick={onTileClick} />
-      <GameSidePanel gameInfo={gameInfo}/>
+      <GameSidePanel gameInfo={gameInfo} onReset={onReset}/>
     </div>
   );
 }

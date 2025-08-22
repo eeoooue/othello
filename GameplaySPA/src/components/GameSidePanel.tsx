@@ -11,14 +11,16 @@ function ParseTurnPlayer(player: number): string {
 
 export default function GameSidePanel({
   gameInfo,
+  onReset,
 }: {
   gameInfo: GameInfo;
+  onReset: () => void;
 }) {
 
   const blackScore: number = gameInfo.ScoreBlack;
   const whiteScore: number = gameInfo.ScoreWhite;
   const turnPlayer: string = ParseTurnPlayer(gameInfo.TurnPlayer);
-  const enableButton: boolean = gameInfo.PlayerMustPass;
+  const enableButton: boolean = gameInfo.PlayerMustPass && !gameInfo.GameOver;
 
   return (
     <div className="game-side-panel">
@@ -39,7 +41,7 @@ export default function GameSidePanel({
 
         <div className="action-buttons">
           <button disabled={!enableButton}>Pass</button>
-          <button>Concede</button>
+          <button onClick={onReset}>New Game</button>
         </div>
 
     </div>

@@ -14,3 +14,19 @@ export async function submitMove(player: number, i: number, j: number): Promise<
     throw new Error(`Move failed (${res.status}): ${text}`);
   }
 }
+
+
+export async function startNewGame(): Promise<void> {
+  const res = await fetch("http://localhost:8080/othellogame/newgame", {
+    method: "POST",
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Move failed (${res.status}): ${text}`);
+  }
+}
+
+
+
+
