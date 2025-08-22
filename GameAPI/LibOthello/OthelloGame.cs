@@ -8,6 +8,8 @@
         public const int BoardWidth = 8;
         public int[,] Board { get { return _board; } }
 
+        public bool GameOver { get { return GameIsOver(); } }
+
         public OthelloPiece TurnPlayer = OthelloPiece.Black;
 
         private List<OthelloMove> _availableMoves = new List<OthelloMove>();
@@ -21,6 +23,39 @@
             InitializeBoard();
             RefreshListOfAvailableMoves();
         }
+
+        public OthelloGame(OthelloGame game)
+        {
+            SetBoardState(game.Board);
+        }
+
+        private bool GameIsOver()
+        {
+            if (AvailableMoves.Count == 0)
+            {
+                OthelloGame futureGame = new OthelloGame(this);
+                futureGame.AttemptPass();
+                if (futureGame.AvailableMoves.Count == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void SetBoardState(int[,] board)
+        {
+            for(int i=0; i<BoardWidth; i++)
+            {
+                for(int j=0; j<BoardWidth; j++)
+                {
+                    _board[i, j] = board[i, j];
+                }
+            }
+            RefreshListOfAvailableMoves();
+        }
+
 
         public OthelloGameState GetGameState()
         {
