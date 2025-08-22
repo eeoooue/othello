@@ -13,11 +13,26 @@ namespace OthelloGameAPI.Services
             Game = new OthelloGame();
         }
 
-        public int[][] GetGameBoard()
+        public int[][] GetGameBoard(bool indicateMoveOptions = false)
         {
             int[,] board = Game.Board;
             int[][] matrix = CreateJaggedMatrix(board);
+
+            if (indicateMoveOptions)
+            {
+                List<OthelloMove> moves = Game.AvailableMoves;
+                EncodeMoveOptions(matrix, moves);
+            }
+
             return matrix;
+        }
+
+        private void EncodeMoveOptions(int[][] board, List<OthelloMove> moves)
+        {
+            foreach(OthelloMove move in moves)
+            {
+                board[move.Row][move.Col] = 5;
+            }
         }
 
         private static int[][] CreateJaggedMatrix(int[,] grid)
