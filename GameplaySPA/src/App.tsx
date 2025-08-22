@@ -6,7 +6,7 @@ import NavBar from './components/NavBar';
 import GameInterface from './components/GameInterface';
 import { createEmptyBoard } from './services/BoardService';
 import type { Piece } from './services/BoardService';
-import { submitMove, startNewGame } from "./services/MoveService";
+import { submitMove, startNewGame, submitPass } from "./services/MoveService";
 import { GameInfo, getDummyGameInfo } from './services/GameInfoService';
 
 import { fetchGameState } from './services/GameStateService';
@@ -30,17 +30,23 @@ function App() {
       .catch(console.error);
   };
 
+  const handlePassClick = () => {
+    submitPass(gameInfo.TurnPlayer)
+      .then(refreshGameState)
+      .catch(console.error);
+  };
+
   const handleResetClick = () => {
     startNewGame()
       .then(refreshGameState)
       .catch(console.error);
   };
-  
+
   return (
     <>
       <NavBar />
       <main className="container">
-        <GameInterface tiles={tiles} gameInfo={gameInfo} onTileClick={handleTileClick} onReset={handleResetClick}/>
+        <GameInterface tiles={tiles} gameInfo={gameInfo} onTileClick={handleTileClick} onPass={handlePassClick} onReset={handleResetClick} />
       </main>
     </>
   );

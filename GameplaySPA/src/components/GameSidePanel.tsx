@@ -11,9 +11,11 @@ function ParseTurnPlayer(player: number): string {
 
 export default function GameSidePanel({
   gameInfo,
+  onPass,
   onReset,
 }: {
   gameInfo: GameInfo;
+  onPass: () => void;
   onReset: () => void;
 }) {
 
@@ -40,7 +42,7 @@ export default function GameSidePanel({
         </div>
 
         <div className="action-buttons">
-          <button disabled={!enableButton}>Pass</button>
+          <button disabled={!enableButton} onClick={onPass}>Pass</button>
           <button onClick={onReset}>New Game</button>
         </div>
 
