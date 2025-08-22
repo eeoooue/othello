@@ -45,6 +45,15 @@ namespace OthelloGameAPI.Controllers
             return Ok();
         }
 
+
+        [HttpPost("Pass")]
+        public IActionResult SubmitPass([FromQuery] int player)
+        {
+            Service.AttemptPass(player);
+            return Ok();
+        }
+
+
         [HttpPost("NewGame")]
         public IActionResult StartNewGame()
         {

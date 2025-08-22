@@ -56,6 +56,15 @@ namespace OthelloGameAPI.Services
             Game.AttemptMove(move);
         }
 
+        public void AttemptPass(int player)
+        {
+            OthelloPiece colour = ParseTurnPlayer(player);
+            if (Game.TurnPlayer == colour)
+            {
+                Game.AttemptPass();
+            }
+        }
+
         private OthelloPiece ParseTurnPlayer(int player)
         {
             if (player == 1)
