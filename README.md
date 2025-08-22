@@ -18,7 +18,7 @@ The system is intended to be an orchestration of three containerized application
 
 ## Usage
 
-This project is a work in progress with very limited functionality.
+This project is a work in progress, and currently only supports self-play.
 
 From the root of the repo, run ```docker compose up --build``` to launch the three applications:
 
