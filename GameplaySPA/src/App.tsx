@@ -25,7 +25,7 @@ function App() {
   useEffect(() => { refreshGameState().catch(console.error); }, []);
 
   const handleTileClick = (i: number, j: number) => {
-    submitMove(gameInfo.TurnPlayer, i, j)
+    submitMove(1, i, j) // '1' here forces playing as black only
       .then(refreshGameState)
       .catch(console.error);
   };
