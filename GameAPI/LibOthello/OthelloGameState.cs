@@ -11,10 +11,46 @@ namespace LibOthello
         public int[,] Board { get; }
         public int TurnPlayer { get; }
 
+        public int AvailableMoves { get; }
+
+        public bool GameOver { get; }
+
+        public int BlackPieces { get { return CountBlackPieces(); } }
+        public int WhitePieces { get { return CountWhitePieces(); } }
+
         public OthelloGameState(OthelloGame game)
         {
             Board = CopyGameBoard(game.Board);
             TurnPlayer = ParseTurnPlayer(game.TurnPlayer);
+            AvailableMoves = game.AvailableMoves.Count;
+            GameOver = false; // TODO: implement a way to determine if the game is over.
+        }
+
+        private int CountBlackPieces()
+        {
+            return CountPiecesOfColour(1);
+        }
+
+        private int CountWhitePieces()
+        {
+            return CountPiecesOfColour(-1);
+        }
+
+        private int CountPiecesOfColour(int colour)
+        {
+            int result = 0;
+            for(int i=0; i<8; i++)
+            {
+                for(int j=0; j<8; j++)
+                {
+                    if (Board[i,j] == colour)
+                    {
+                        result++;
+                    }
+                }
+            }
+
+            return result;
         }
 
         private int[,] CopyGameBoard(int[,] board)
