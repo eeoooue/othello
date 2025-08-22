@@ -23,7 +23,7 @@ namespace LibOthello
             Board = CopyGameBoard(game.Board);
             TurnPlayer = ParseTurnPlayer(game.TurnPlayer);
             AvailableMoves = game.AvailableMoves.Count;
-            GameOver = false; // TODO: implement a way to determine if the game is over.
+            GameOver = game.GameOver;
         }
 
         private int CountBlackPieces()
