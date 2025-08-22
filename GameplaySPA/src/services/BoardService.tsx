@@ -1,10 +1,11 @@
 
-export type Piece = "empty" | "white" | "black";
+export type Piece = "empty" | "white" | "black" | "option";
 
 function intToPiece(n: number): Piece {
   switch (n) {
     case 1:  return "black";
     case -1: return "white";
+    case 5: return "option";
     default: return "empty";
   }
 }
@@ -34,7 +35,7 @@ export function createEmptyBoard(): Piece[] {
 }
 
 export async function getBoardFromApi(): Promise<number[][]> {
-    const res = await fetch("http://localhost:8080/othellogame/board", {
+    const res = await fetch("http://localhost:8080/othellogame/board?indicateMoveOptions=true", {
         mode: "cors",
         headers: { "Accept": "application/json" },
     });
