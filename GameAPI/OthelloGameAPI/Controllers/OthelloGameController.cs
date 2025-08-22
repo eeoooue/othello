@@ -1,6 +1,7 @@
 ﻿using LibOthello;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using OthelloGameAPI.DataObjects;
 using OthelloGameAPI.Services;
 
 namespace OthelloGameAPI.Controllers
@@ -16,6 +17,12 @@ namespace OthelloGameAPI.Controllers
         public OthelloGameController(OthelloGameService service)
         {
             Service = service;
+        }
+
+        [HttpGet("GameInfo")]
+        public IActionResult GetGameInfo()
+        {
+            return Ok();
         }
 
         [HttpGet("Board")]
@@ -43,14 +50,6 @@ namespace OthelloGameAPI.Controllers
         {
             int turnPlayer = GameState.TurnPlayer;
             return Ok(turnPlayer);
-        }
-
-
-        public class MoveDataObject
-        {
-            public int Player { get; set; } 
-            public int I { get; set; }
-            public int J { get; set; }
         }
 
         [HttpPost("Move")]
