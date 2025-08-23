@@ -2,11 +2,16 @@
 import './GameSidePanel.css'
 import type { GameInfo } from "../services/GameInfoService";
 
-function ParseTurnPlayer(player: number): string {
-  if (player == 1){
-    return "Black";
+
+function DetermineTurnContext(player: number, gameOver: boolean){
+
+  if (gameOver){
+    return "Game Over";
   }
-  return "White";
+  if (player == 1){
+    return "Black's Turn";
+  }
+  return "White's Turn";
 }
 
 export default function GameSidePanel({
@@ -21,7 +26,7 @@ export default function GameSidePanel({
 
   const blackScore: number = gameInfo.ScoreBlack;
   const whiteScore: number = gameInfo.ScoreWhite;
-  const turnPlayer: string = ParseTurnPlayer(gameInfo.TurnPlayer);
+  const turnContext: string = DetermineTurnContext(gameInfo.TurnPlayer, gameInfo.GameOver);
   const enableButton: boolean = gameInfo.PlayerMustPass && !gameInfo.GameOver;
 
   return (
@@ -38,7 +43,7 @@ export default function GameSidePanel({
         </div>
 
         <div className="game-status">
-          <h4>{turnPlayer}'s Turn</h4>
+          <h4>{turnContext}</h4>
         </div>
 
         <div className="action-buttons">
