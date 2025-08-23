@@ -1,8 +1,10 @@
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from othello_board_analyst import OthelloBoardAnalyst
 
 app = Flask(__name__)
+CORS(app)
 
 analyst = OthelloBoardAnalyst()
 
