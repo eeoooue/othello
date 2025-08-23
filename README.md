@@ -1,13 +1,13 @@
 
 # Othello
 
-A self-hosted application for playing Othello against a Convolutional Neural Network (CNN).
+A self-hosted web application for playing Othello against a Convolutional Neural Network (CNN).
 
 ![Image](./docs/images/ExampleScreenshot.png)
 
 ## System Design
 
-The system is intended to be an orchestration of three containerized applications:
+The system is distributed across three containerized applications:
 
 - **OthelloGameplaySPA** - A single-page application presenting a user interface for playing games of Othello against a computer opponent.
 - **OthelloGameAPI** - A service tasked with maintaining the game state, performing game logic and making game events available to the frontend.
@@ -18,13 +18,13 @@ The system is intended to be an orchestration of three containerized application
 
 ## Usage
 
-This project is a work in progress, and currently only supports playing against random move selection rather than a CNN model.
-
 From the root of the repo, run ```docker compose up --build``` to launch the three applications:
 
 1) Gameplay SPA @ http://localhost:5173/
 2) Game API @ http://localhost:8080/othellogame/board
 3) Opponent API @ http://localhost:5000/
+
+> ⚠️ Due to its pytorch dependencies, the opponent-api docker image takes a long time to build (10min+ for me) and is quite large (8.6 GB).
 
 ## Broader Context
 
